@@ -3,7 +3,7 @@ defmodule BoardTest do
   import Board 
 
   test "creates a new board" do
-    board = create_board()
+    board = new_board
     assert board == [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 

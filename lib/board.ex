@@ -1,6 +1,8 @@
 defmodule Board do
-  def create_board do
-    [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  @standard_board [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+  def new_board do
+    @standard_board
   end
 
   def open_cell?(board, cell_index) do
