@@ -1,12 +1,33 @@
 defmodule Player do
+  import HumanPlayer
+  import ComputerPlayer
+  import AiPlayer
+
   @human_player "human"
   @computer_player "computer"
   @ai_player "ai"
 
-  defstruct marker: "X", type: @human_player 
-
   def create_player(marker, type) do
-    %Player{marker: marker, type: type}
+    case type do
+      @human_player ->
+        create_human_player(marker) 
+      @computer_player ->
+        create_computer_player(marker) 
+      @ai_player ->
+        create_ai_player(marker)   
+    end
+  end
+
+  def create_human_player(marker) do
+    %HumanPlayer{marker: marker}
+  end
+
+  def create_computer_player(marker) do
+    %ComputerPlayer{marker: marker}
+  end
+
+  def create_ai_player(marker) do
+    %AiPlayer{marker: marker}
   end
 
   def player_types do

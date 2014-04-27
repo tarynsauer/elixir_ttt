@@ -5,7 +5,6 @@ defmodule PlayerTest do
   test "creates a new player" do
     player = create_player("X", "human") 
     assert player.marker == "X" 
-    assert player.type == "human"
   end
 
 end
