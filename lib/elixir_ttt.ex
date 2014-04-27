@@ -1,2 +1,0 @@
-defmodule ElixirTtt do
-end
