@@ -3,7 +3,7 @@ defmodule ValidatorsTest do
   import Validators   
 
   test "creates player when type is valid" do
-    assert validate_type("human", "X") == %Player{marker: "X", type: "human"}
+    assert validate_type("human", "X") == %HumanPlayer{marker: "X"}
   end
 
   test "returns true if move is valid" do
