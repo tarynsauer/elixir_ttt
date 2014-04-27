@@ -1,5 +1,6 @@
 defmodule Ui do
-  
+  import Board, only: [get_row: 3] 
+
   def print_line(text) do
     IO.puts text 
   end
@@ -27,13 +28,22 @@ defmodule Ui do
     request_player_move(marker)
   end
 
-  def print_row(row) do
-    print_line Enum.join(row, " ")
+  def game_over_message do
+    print_line "Game over."
   end
 
-  def get_row(board, first, last) do
-    range = Range.new(first, last)
-    Enum.slice(board, range)
+  def tie_game_message do
+   game_over_message
+   print_line "It's a tie!"
+  end
+
+  def winning_game_message(marker) do
+    game_over_message
+    print_line "Player '#{marker}' wins!"
+  end
+
+  def print_row(row) do
+    print_line Enum.join(row, " ")
   end
 
   def print_board(board) do

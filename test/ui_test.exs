@@ -40,4 +40,16 @@ defmodule UiTest do
      end) == "X 2 3\n4 5 6\n7 8 9\n" 
   end
 
+  test "prints game over message for tie game" do
+    assert capture_io(fn ->
+       tie_game_message
+     end) == "Game over.\nIt's a tie!\n" 
+  end
+
+  test "prints game over message for winning game" do
+    assert capture_io(fn ->
+       winning_game_message("X")
+     end) == "Game over.\nPlayer 'X' wins!\n" 
+  end
+
 end
