@@ -3,9 +3,9 @@ defmodule Player do
   import ComputerPlayer
   import AiPlayer
 
-  @human_player "human"
-  @computer_player "computer"
-  @ai_player "ai"
+  @human_player "h"
+  @computer_player "c"
+  @ai_player "a"
 
   def create_player(marker, type) do
     case type do

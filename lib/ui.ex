@@ -7,7 +7,8 @@ defmodule Ui do
 
   def get_input do
     input = IO.gets ">"
-    String.downcase(input)
+    input = String.downcase(input)
+    String.slice(input, 0..0)
   end
 
   def request_player_type(marker) do

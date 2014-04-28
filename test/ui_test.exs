@@ -16,10 +16,10 @@ defmodule UiTest do
   end
 
   test "normalizes player type input" do
-    assert capture_io([input: "Human", capture_prompt: false], fn ->
+    capture_io([input: "Human\n", capture_prompt: false], fn ->
       input = get_input 
-      IO.write input
-    end) == "human"
+      assert input == "h"
+    end)
   end
 
   test "prints invalid type message" do
