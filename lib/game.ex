@@ -2,15 +2,15 @@ defmodule Game do
   import Integer
   import Board
   import Validators
-  import Ui, only: [request_player_move: 1]
+  import Ui
   import HumanPlayer
   import ComputerPlayer
   import AiPlayer
   import MakeMove
-  
+
   @x_marker "X"
   @o_marker "O"
-  
+
   def new_game do
     board = new_board  
     player_x = get_player(@x_marker)
@@ -19,19 +19,40 @@ defmodule Game do
   end
 
   def play(board, player_x, player_o) do
-    # loops through until board game_over
-    # prompts current player for move
-    # prints game over message 
+    if game_over?(board) do
+      game_over_message(board)      
+    else
+      board = get_next_move(board, player_x, player_o)
+      play(board, player_x, player_o)
+    end
+  end
+  
+  def get_next_move(board, player_x, player_o) do
+    request_player_move(current_player(board, player_x, player_o).marker) 
+    print_board(board)
+    make_move(current_player(board, player_x, player_o), board)     
+  end
+
+  def x_player_turn?(board) do
+    marker_count = Enum.filter(board, fn(x) -> !is_integer(x) end)
+    even?(length marker_count) 
   end
 
   def current_player(board, player_x, player_o) do
-    x_count = Enum.filter(board, fn(x) -> x == (@x_marker || @o_marker) end)
-    if even?(length x_count), do: player_x, else: player_o 
+    if x_player_turn?(board), do: player_x, else: player_o 
   end
 
-  def get_next_move(board, player_x, player_o) do
-    request_player_move(current_player(board, player_x, player_o).marker) 
-    make_move(current_player(board, player_x, player_o), board)     
+  def winning_marker(board) do
+    if x_player_turn?(board), do: @o_marker, else: @x_marker 
+  end
+
+  def game_over_message(board) do
+    if winning_game?(board) do
+      winning_game_message(winning_marker(board))
+    else
+      tie_game_message
+    end
+    print_board(board)
   end
 
 end
