@@ -1,10 +1,7 @@
 defmodule ComputerPlayerTest do
   use ExUnit.Case
   import ComputerPlayer 
-
-  def number_of_markers_on_board(board) do
-    length Enum.filter([1, 2, "X"], fn(x) -> x == "X" end)
-  end
+  import TestHelper, only: [number_of_markers_on_board: 1]
 
   test "returns list of indexes of all open cells" do
      board = [1, 2, 3, "X", 5, 6, 7, 8, 9]
