@@ -20,7 +20,7 @@ defmodule Validators do
 
   def valid_integer?(move) do
     try do 
-       is_tuple(Integer.parse(move))
+      is_tuple(Integer.parse(move))
     end
   end
 
@@ -29,13 +29,22 @@ defmodule Validators do
     elem(parsed_move, 0) - 1
   end
 
+  def play_valid_move(board, move, marker) do
+    cell_index = get_cell_index(move)
+    add_marker(board, marker, cell_index) 
+  end
+
+  def handle_invalid_move(board, marker) do
+    invalid_move_message(marker)
+    request_player_move(marker)
+    board
+  end
+
   def validate_move(board, move, marker) do
     if valid_move?(board, move) do
-      cell_index = get_cell_index(move)
-      add_marker(board, marker, cell_index) 
+      play_valid_move(board, move, marker)
     else
-      invalid_move_message(marker)
-      request_player_move(marker)
+      handle_invalid_move(board, marker)
     end
   end
 
