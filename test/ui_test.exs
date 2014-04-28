@@ -25,13 +25,13 @@ defmodule UiTest do
   test "prints invalid type message" do
      assert capture_io(fn ->
        invalid_type_message("X")
-     end) == "Invalid type.\nEnter player type for X:\n" 
+     end) == "Invalid type. " 
   end
 
   test "prints invalid move message" do
      assert capture_io(fn ->
        invalid_move_message("X")
-     end) == "Invalid move.\nPlayer X, make your move:\n" 
+     end) == "Invalid move. " 
   end
 
   test "prints board" do
@@ -43,13 +43,13 @@ defmodule UiTest do
   test "prints game over message for tie game" do
     assert capture_io(fn ->
        tie_game_message
-     end) == "Game over.\nIt's a tie!\n" 
+     end) == "Game over. It's a tie!\n" 
   end
 
   test "prints game over message for winning game" do
     assert capture_io(fn ->
        winning_game_message("X")
-     end) == "Game over.\nPlayer 'X' wins!\n" 
+     end) == "Game over. Player 'X' wins!\n" 
   end
 
 end

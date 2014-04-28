@@ -5,6 +5,10 @@ defmodule Ui do
     IO.puts text 
   end
 
+  def print(text) do
+    IO.write text
+  end
+
   def get_input do
     input = IO.gets ">"
     input = String.downcase(input)
@@ -20,17 +24,15 @@ defmodule Ui do
   end
 
   def invalid_type_message(marker) do
-    print_line "Invalid type."
-    request_player_type(marker)
+    print "Invalid type. "
   end
 
   def invalid_move_message(marker) do
-    print_line "Invalid move."
-    request_player_move(marker)
+    print "Invalid move. "
   end
 
   def game_over_message do
-    print_line "Game over."
+    print "Game over. "
   end
 
   def tie_game_message do
