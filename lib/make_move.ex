@@ -18,7 +18,7 @@ end
 
 defimpl MakeMove, for: ComputerPlayer do
   def make_move(player, board) do 
-    make_random_move(board, player.marker)
+    make_random_move(board)
   end
 end
 

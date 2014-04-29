@@ -1,47 +1,49 @@
 defmodule AiPlayer do
   defstruct marker: "X" 
+  @pos_inf 999
+  @neg_inf -999
   @win 1
   @lose -1
   @tie 0
   import Utils
   import Board
 
-  def ai_move(board, marker) do
+  def ai_move(board, ai_marker) do
     if empty_board?(board) do
-      make_random_move(board, marker) 
+      make_random_move(board) 
     else
-      add_marker(board, best_move(board, marker))
+      add_marker(board, best_move(board, ai_marker))
     end
   end
 
-  def best_move(board, current_player_marker) do
-    best_scored_move = Enum.max(scored_moves(board, current_player_marker))
+  def best_move(board, ai_marker) do
+    best_scored_move = Enum.max(scored_moves(board, ai_marker))
     Enum.at(best_scored_move, 1)
   end
 
-  def scored_moves(board, current_player_marker) do
+  def scored_moves(board, ai_marker) do
     cells = open_cells(board)
     Enum.map(cells, fn cell -> 
-    [move_score(board, current_player_marker, cell)] ++ [cell] end)    
+    [move_score(board, ai_marker, cell)] ++ [cell] end)    
   end
 
-  def move_score(board, current_player_marker, cell) do
-    apply_minimax(add_marker(board, cell), current_player_marker,
-    current_player_marker, 1)     
+  def move_score(board, ai_marker, cell) do
+    apply_minimax(add_marker(board, cell), ai_marker,
+    ai_marker, 1)     
   end
 
-  def minimax(board, current_player_marker, marker, depth) do
+  def minimax(board, ai_marker, marker, depth) do
     cells = open_cells(board)
     Enum.map(cells, fn cell -> (apply_minimax(add_marker(board,
-    cell), current_player_marker, current_player_marker(board), (depth + 1)) / depth) end)     
+    cell), ai_marker, current_player_marker(board), (depth + 1)) / depth) end)     
   end
 
-  def apply_minimax(board, current_player_marker, marker, depth) do
+  def apply_minimax(board, ai_marker, marker, depth) do
     if game_over?(board) do
-      score(board, current_player_marker)
+      score(board, ai_marker)
     else
-      scores = minimax(board, current_player_marker, marker, depth)
-      if current_player_marker == marker do
+      scores = minimax(board, ai_marker, marker, depth)
+      if ai_marker == marker do
         Enum.min(scores)
       else
         Enum.max(scores)
@@ -49,13 +51,13 @@ defmodule AiPlayer do
     end
   end
 
-  def current_player_win?(board, marker) do
-    winning_marker(board) == marker
+  def ai_player_win?(board, ai_marker) do
+   current_player_marker(board) != ai_marker
   end
 
-  def score(board, current_player_marker) do
+  def score(board, ai_marker) do
     if winning_game?(board) do
-      if current_player_marker(board) != current_player_marker, do: @win, else: @lose 
+      if ai_player_win?(board, ai_marker), do: @win, else: @lose 
     else
       @tie
     end

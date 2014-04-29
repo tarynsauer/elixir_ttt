@@ -30,7 +30,7 @@ defmodule BoardTest do
 
   test "places move in a random open cell" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    assert number_of_markers_on_board(make_random_move(board, "X")) == 1 
+    assert number_of_markers_on_board(make_random_move(board)) == 1 
   end
 
 

@@ -34,7 +34,7 @@ defmodule Board do
     List.replace_at(board, cell_index, marker)
   end
 
-  def make_random_move(board, marker) do
+  def make_random_move(board) do
     cell_index = List.first(Enum.shuffle(board)) - 1
     add_marker(board, cell_index)
   end
