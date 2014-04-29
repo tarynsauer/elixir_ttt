@@ -1,6 +1,7 @@
 defmodule BoardTest do
   use ExUnit.Case
   import Board 
+  import TestHelper, only: [number_of_markers_on_board: 1]
 
   test "creates a new board" do
     board = new_board
@@ -17,16 +18,32 @@ defmodule BoardTest do
     refute open_cell?(board, 0)
   end
 
+  test "returns indexes of all open cells" do
+    board = ["X", 2, 3, 4, 5, 6, 7, 8, 9]
+    assert open_cells(board) == [1, 2, 3, 4, 5, 6, 7, 8] 
+  end
+
   test "adds marker to the board" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    assert add_marker(board, "X", 0) == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
+    assert add_marker(board, 0) == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
   end
+
+  test "places move in a random open cell" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert number_of_markers_on_board(make_random_move(board, "X")) == 1 
+  end
+
 
   test "returns true, indicates no moves remaining" do
     board = ["X", "O", "X", 
              "X", "O", "O", 
              "O", "X", "X"]
     assert board_full?(board)
+  end
+
+  test "when board is empty, returns true" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert empty_board?(board)
   end
 
   test "returns true when a player has a winning row" do

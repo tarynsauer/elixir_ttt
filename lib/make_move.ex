@@ -1,6 +1,7 @@
 import Ui, only: [get_input: 0]
 import Validators, only: [validate_move: 3]
-import ComputerPlayer
+import Board 
+import AiPlayer
 
 defprotocol MakeMove do
   @doc "Returns cell index of player move"
@@ -22,5 +23,7 @@ defimpl MakeMove, for: ComputerPlayer do
 end
 
 defimpl MakeMove, for: AiPlayer do
-  def make_move(player, board), do: "ai move" 
+  def make_move(player, board) do 
+    ai_move(board, player.marker)
+  end
 end

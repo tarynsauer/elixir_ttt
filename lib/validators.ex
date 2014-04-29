@@ -1,7 +1,8 @@
 defmodule Validators do
   import Player
   import Ui
-  import Board, only: [open_cell?: 2, add_marker: 3]
+  import Board, only: [open_cell?: 2, add_marker: 2]
+  import Utils
 
   @valid_types player_types
 
@@ -31,7 +32,7 @@ defmodule Validators do
 
   def play_valid_move(board, move, marker) do
     cell_index = get_cell_index(move)
-    add_marker(board, marker, cell_index) 
+    add_marker(board, cell_index) 
   end
 
   def handle_invalid_move(board, marker) do

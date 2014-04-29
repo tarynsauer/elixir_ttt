@@ -1,8 +1,4 @@
 defmodule Player do
-  import HumanPlayer
-  import ComputerPlayer
-  import AiPlayer
-
   @human_player "h"
   @computer_player "c"
   @ai_player "a"

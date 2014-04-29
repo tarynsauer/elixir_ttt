@@ -3,9 +3,6 @@ defmodule Game do
   import Board
   import Validators
   import Ui
-  import HumanPlayer
-  import ComputerPlayer
-  import AiPlayer
   import MakeMove
 
   @x_marker "X"

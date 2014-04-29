@@ -1,5 +1,6 @@
 defmodule Board do
   @standard_board [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  import Utils
 
   def new_board do
     @standard_board
@@ -19,18 +20,32 @@ defmodule Board do
     [Enum.at(board, first), Enum.at(board, 4), Enum.at(board, last)]
   end
 
+  def open_cells(board) do
+    Enum.filter_map(board, fn(x) -> is_integer(x) end, &(&1 - 1))
+  end
+
   def open_cell?(board, cell_index) do
     cell_value = Enum.at(board, cell_index)
     is_integer(cell_value)
   end
 
-  def add_marker(board, marker, cell_index) do
+  def add_marker(board, cell_index) do
+    marker = current_player_marker(board)
     List.replace_at(board, cell_index, marker)
   end
 
+  def make_random_move(board, marker) do
+    cell_index = List.first(Enum.shuffle(board)) - 1
+    add_marker(board, cell_index)
+  end
+
   def board_full?(board) do
-    open_cells = Enum.filter(board, fn(x) -> (x != "X") && (x != "O") end)
+    open_cells = Enum.filter(board, fn(x) -> is_integer(x) end)
     Enum.empty?(open_cells)
+  end
+
+  def empty_board?(board) do
+    Enum.all?(board, fn(x) -> is_integer(x) end)
   end
 
   def winning_game?(board) do
