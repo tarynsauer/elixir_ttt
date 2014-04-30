@@ -26,37 +26,37 @@ defmodule AiPlayer do
   end
 
   def move_score(board, ai_marker, cell) do
-    apply_minimax(add_marker(board, cell), ai_marker, ai_marker, 1, [0, -999, 999])     
+    apply_minimax(add_marker(board, cell), ai_marker, ai_marker, 1, -999, 999)     
   end
 
-  def alphabeta(board, ai_marker, marker, depth, values) do
-    Enum.flat_map_reduce(board, values, fn cell, acc ->
-      if no_break?(acc) do
+  def alphabeta(board, ai_marker, marker, depth, alpha, beta) do
+    Enum.flat_map_reduce(board, 0, fn cell, acc ->
+      if no_break?(alpha, beta) do
         apply_minimax(add_marker(board, cell),
-        ai_marker, current_player_marker(board), depth, acc)
+        ai_marker, current_player_marker(board), depth, alpha, beta)
       else
         {:halt, acc}  ##need to return score,
       end
     end)
   end
 
-  def apply_minimax(board, ai_marker, marker, depth, acc) do
+  def apply_minimax(board, ai_marker, marker, depth, alpha, beta) do
     if game_over?(board) do
       score(board, ai_marker)
     else
-      score = alphabeta(board, ai_marker, current_player_marker(board), (depth + 1), acc)
-      alpha = get_alpha(ai_marker, marker, acc, score)
-      beta = get_beta(ai_marker, marker, acc, score)
-      [score, alpha, beta]
+      score = elem(alphabeta(board, ai_marker, current_player_marker(board), (depth +
+      1), alpha, beta), 1) / depth
+      IO.inspect score
+      alpha = get_alpha(ai_marker, marker, score, alpha)
+      beta = get_beta(ai_marker, marker, score, beta)
     end
   end
 
-  def no_break?(acc) do
-    Enum.at(acc, 2) < Enum.at(acc, 1)
+  def no_break?(alpha, beta) do
+    beta < alpha 
   end
 
-  def get_alpha(ai_marker, marker, acc, score) do
-    alpha = Enum.at(acc, 1)
+  def get_alpha(ai_marker, marker, score, alpha) do
     if marker == ai_marker do  ### Might be opposite
       alpha
     else
@@ -64,8 +64,7 @@ defmodule AiPlayer do
     end
   end
 
-  def get_beta(ai_marker, marker, acc, score) do
-    beta = Enum.at(acc, 2)
+  def get_beta(ai_marker, marker, score, beta) do
     if marker == ai_marker do  ### Might be opposite
       if score < beta, do: score, else: beta
     else
