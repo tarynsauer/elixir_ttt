@@ -61,7 +61,7 @@ defmodule Board do
   end
 
   def make_random_move(board) do
-    cell_index = List.first(Enum.shuffle(board)) - 1
+    cell_index = List.first(Enum.shuffle(open_cells(board)))
     add_marker(board, cell_index)
   end
 
