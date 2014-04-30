@@ -19,11 +19,23 @@ defmodule ValidatorsTest do
     refute valid_move?(["X", 2, 3, 4, 5, 6, 7, 8, 9], "1")
   end
 
+  test "returns false if size range is invalid" do
+    refute valid_board_size?("1")
+  end
+
+  test "returns false if size is bad" do
+    refute valid_board_size?("''")
+  end
+
+  test "returns true if size is valid" do
+    assert valid_board_size?("3")
+  end
+
   test "returns false for bad input" do
     refute valid_move?(["X", 2, 3, 4, 5, 6, 7, 8, 9], "/")
   end
 
-  test "handles bad input" do
+  test "handles bad move input" do
     assert capture_io(fn ->
       validate_move(["X", 2, 3, 4, 5, 6, 7, 8, 9], ";lkj;ewejor", "O")
     end) == "Invalid move. Player 'O', make your move:\n" 
@@ -37,6 +49,19 @@ defmodule ValidatorsTest do
   test "doesn't add invalid move to board" do
     board = ["X", 2, 3, 4, 5, 6, 7, 8, 9]
     assert validate_move(board, "1", "O") == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
+  end
+
+  test "doesn't apply bad type input, requests re-entry" do
+    capture_io([input: "Human\n", capture_prompt: false], fn ->
+      assert validate_type("c", "X") == %ComputerPlayer{marker: "X"} 
+    end)
+  end
+
+  test "doesn't apply bad size input, requests re-entry" do
+    capture_io([input: "4\n", capture_prompt: false], fn ->
+      assert validate_board_size("X") == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+      13, 14, 15, 16] 
+    end)
   end
 
 end

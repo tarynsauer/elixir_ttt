@@ -28,4 +28,8 @@ defmodule Utils do
     Enum.at(board, index)
   end
   
+  def parse_integer(string) do
+    elem(Integer.parse(string), 0)
+  end
+
 end

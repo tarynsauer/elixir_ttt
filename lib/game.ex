@@ -9,7 +9,7 @@ defmodule Game do
   @o_marker "O"
 
   def new_game do
-    board = new_board(3)  
+    board = get_board_size  
     player_x = get_player(@x_marker)
     player_o = get_player(@o_marker)
     play(board, player_x, player_o)

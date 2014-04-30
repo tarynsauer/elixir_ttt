@@ -1,7 +1,7 @@
 defmodule Validators do
   import Player
   import Ui
-  import Board, only: [open_cell?: 2, add_marker: 2]
+  import Board, only: [new_board: 1, open_cell?: 2, add_marker: 2]
   import Utils
 
   @valid_types player_types
@@ -19,6 +19,15 @@ defmodule Validators do
     valid_integer?(move) && valid_cell_index?(board, get_cell_index(move))
   end
 
+  def valid_size?(size) do
+    parsed_size = parse_integer(size)
+    (3 <= parsed_size) && (parsed_size <= 6)
+  end
+
+  def valid_board_size?(size) do
+    valid_integer?(size) && valid_size?(size)
+  end
+
   def valid_integer?(move) do
     try do 
       is_tuple(Integer.parse(move))
@@ -26,8 +35,7 @@ defmodule Validators do
   end
 
   def get_cell_index(move) do
-    parsed_move = Integer.parse(move)
-    elem(parsed_move, 0) - 1
+    parse_integer(move) - 1
   end
 
   def play_valid_move(board, move, marker) do
@@ -58,10 +66,26 @@ defmodule Validators do
     end
   end
 
+  def validate_board_size(size) do
+    if valid_board_size?(size) do
+      parsed_size = parse_integer(size) 
+      new_board(parsed_size) 
+    else
+      invalid_size_message
+      get_board_size
+    end
+  end
+
   def get_player(marker) do
     request_player_type(marker)
     type = get_input
     validate_type(type, marker)
+  end
+
+  def get_board_size do
+    request_board_size
+    size = get_input
+    validate_board_size(size)
   end
 
   def get_move(board, marker) do

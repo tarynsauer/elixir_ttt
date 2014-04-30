@@ -1,6 +1,7 @@
 defmodule Ui do
   import Board, only: [get_row: 3] 
   import Utils, only: [row_count: 1, row_counter: 1]
+
   def print_line(text) do
     IO.puts text 
   end
@@ -23,12 +24,20 @@ defmodule Ui do
     print_line "Player '#{marker}', make your move:"
   end
 
+  def request_board_size do
+    print_line "Enter number of board rows (3-6):"
+  end
+
   def invalid_type_message(marker) do
     print "Invalid type. "
   end
 
   def invalid_move_message(marker) do
     print "Invalid move. "
+  end
+
+  def invalid_size_message do
+    print "Invalid size. "
   end
 
   def game_over_message do

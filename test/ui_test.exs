@@ -4,9 +4,15 @@ defmodule UiTest do
   import ExUnit.CaptureIO
 
   test "requests player type" do
-     assert capture_io(fn ->
-       request_player_type("X")
-     end) == "Enter player type for 'X':\n" 
+    assert capture_io(fn ->
+      request_player_type("X")
+    end) == "Enter player type for 'X':\n" 
+  end
+
+  test "requests board size" do
+    assert capture_io(fn ->
+      request_board_size
+    end) == "Enter number of board rows (3-6):\n" 
   end
 
   test "requests player move" do
@@ -29,9 +35,15 @@ defmodule UiTest do
   end
 
   test "prints invalid move message" do
-     assert capture_io(fn ->
-       invalid_move_message("X")
-     end) == "Invalid move. " 
+    assert capture_io(fn ->
+      invalid_move_message("X")
+    end) == "Invalid move. " 
+  end
+
+  test "prints invalid size message" do
+    assert capture_io(fn ->
+      invalid_size_message
+    end) == "Invalid size. " 
   end
 
   test "prints board" do
