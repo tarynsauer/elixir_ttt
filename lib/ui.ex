@@ -1,6 +1,6 @@
 defmodule Ui do
   import Board, only: [get_row: 3] 
-  import Utils, only: [row_count: 1, row_counter: 1]
+  import GameUtils, only: [row_count: 1, row_counter: 1]
 
   def print_line(text) do
     IO.puts text 

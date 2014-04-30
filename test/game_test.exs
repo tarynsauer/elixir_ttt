@@ -18,16 +18,6 @@ defmodule GameTest do
     assert current_player(board, player_x, player_o) == player_o 
   end
 
-  test "indicates whether it's X's turn" do
-    board = ["X", "O", "X", 4, 5, 6, 7, 8, 9]
-    refute player_x_turn?(board)
-  end
-
-  test "returns marker of the current player's opponent" do
-    board = ["X", "O", "X", 4, 5, 6, 7, 8, 9]
-    assert winning_marker(board) == "X"
-  end
-
   test "promps player for move" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     player_x = %ComputerPlayer{marker: "X"}

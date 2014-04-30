@@ -1,22 +1,30 @@
-defmodule Utils do
+defmodule GameUtils do
   import Integer
   @x_marker "X"
   @o_marker "O"
   
+  def x_marker do
+    @x_marker
+  end
+
+  def o_marker do
+    @o_marker
+  end
+
   def has_marker?(cell) do
     !is_integer(cell)
   end
 
-  def x_player_turn?(board) do
+  def current_player_marker(board) do
+    if player_x_turn?(board), do: x_marker, else: o_marker 
+  end
+
+  def player_x_turn?(board) do
     Enum.filter(board, fn(cell) -> has_marker?(cell) end) |> length |> even?
   end
 
   def winning_marker(board) do
-    if x_player_turn?(board), do: @o_marker, else: @x_marker 
-  end
-
-  def current_player_marker(board) do
-    if x_player_turn?(board), do: @x_marker, else: @o_marker 
+    if player_x_turn?(board), do: o_marker, else: x_marker 
   end
 
   def row_count(board) do

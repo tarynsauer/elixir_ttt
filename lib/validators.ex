@@ -2,13 +2,11 @@ defmodule Validators do
   import Player
   import Ui
   import Board, only: [new_board: 1, open_cell?: 2, add_marker: 2]
-  import Utils
-
-  @valid_types player_types
+  import GameUtils
 
   def valid_type?(type) do
     type = String.downcase(type)
-    Enum.any?(@valid_types, fn(x) -> x == type end)
+    Enum.any?(player_types, fn(x) -> x == type end)
   end
 
   def within_range?(board, cell_index) do

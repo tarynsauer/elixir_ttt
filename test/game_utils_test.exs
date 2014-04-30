@@ -1,6 +1,6 @@
-defmodule UtilsTest do
+defmodule GameUtilsTest do
   use ExUnit.Case
-  import Utils 
+  import GameUtils 
 
   test "cell has marker" do
     assert has_marker?("X") 
@@ -12,12 +12,12 @@ defmodule UtilsTest do
 
   test "player X has next turn" do
     board = ["O", "X", 3, 4, 5, 6, 7, 8, 9]
-    assert x_player_turn?(board)
+    assert player_x_turn?(board)
   end
 
   test "player O has next turn" do
     board = ["O", "X", "X", 4, 5, 6, 7, 8, 9]
-    refute x_player_turn?(board)
+    refute player_x_turn?(board)
   end
 
   test "winning player marker" do

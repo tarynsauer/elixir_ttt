@@ -1,5 +1,5 @@
 defmodule Board do
-  import Utils
+  import GameUtils
 
   def new_board(row_count) do
     Range.new(1, (row_count * row_count)) |> Enum.to_list
