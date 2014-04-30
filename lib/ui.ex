@@ -12,8 +12,7 @@ defmodule Ui do
 
   def get_input do
     input = IO.gets ">"
-    input = String.downcase(input)
-    String.slice(input, 0..0)
+    String.downcase(input) |> String.slice(0..0)
   end
 
   def request_player_type(marker) do
@@ -55,12 +54,13 @@ defmodule Ui do
   end
 
   def row_to_string(board, first, last) do
-    row_values = get_row(board, first, last)
-    Enum.join(row_values, " ")
+    get_row(board, first, last) |> Enum.join(" ")
   end
 
   def print_row(board, num_rows, index) do
-    print_line row_to_string(board, (index * num_rows), (num_rows * (index + 1)) - 1)
+    first = index * num_rows
+    last =  num_rows * (index + 1) - 1
+    print_line row_to_string(board, first, last)
   end
 
   def print_board(board) do

@@ -18,6 +18,18 @@ defmodule AiPlayerTest do
      assert score(board, "X") == -1 
   end
 
+  test "chooses random cell for empty board" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert number_of_markers_on_board(ai_move(board, "X")) == 1 
+  end
+
+  test "takes winning move" do
+    board = [1, "X", "X", 
+             "X", "O", "O", 
+             "X", "O", "O"]
+    assert ai_move(board, "X") == ["X", "X", "X", "X", "O", "O", "X", "O", "O"] 
+  end
+
   test "takes winning space when one is available" do
     board = [1, "X", "X", 
               4, "O", "O", 
