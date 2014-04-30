@@ -26,7 +26,7 @@ defmodule ValidatorsTest do
   test "handles bad input" do
     assert capture_io(fn ->
       validate_move(["X", 2, 3, 4, 5, 6, 7, 8, 9], ";lkj;ewejor", "O")
-    end) == "Invalid move. Player O, make your move:\n" 
+    end) == "Invalid move. Player 'O', make your move:\n" 
   end
 
   test "adds valid move to board" do

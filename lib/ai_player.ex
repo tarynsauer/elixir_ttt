@@ -1,7 +1,5 @@
 defmodule AiPlayer do
   defstruct marker: "X" 
-  @pos_inf 999
-  @neg_inf -999
   @win 1
   @lose -1
   @tie 0

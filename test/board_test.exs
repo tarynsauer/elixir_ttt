@@ -3,14 +3,19 @@ defmodule BoardTest do
   import Board 
   import TestHelper, only: [number_of_markers_on_board: 1]
 
-  test "creates a new board" do
-    board = new_board
+  test "creates a new 3 x 3 board" do
+    board = new_board(3)
     assert board == [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
+  test "creates a new 4 x 4 board" do
+    board = new_board(4)
+    assert board == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  end
+
   test "gets column values" do
-    board = new_board
-    assert get_col(board, 0, 6) == [1, 4, 7]
+    board = new_board(3)
+    assert get_col(board, 0, [0, 1, 2], 3) == [1, 4, 7]
   end
 
   test "indicates whether cell is open" do
@@ -33,7 +38,6 @@ defmodule BoardTest do
     assert number_of_markers_on_board(make_random_move(board)) == 1 
   end
 
-
   test "returns true, indicates no moves remaining" do
     board = ["X", "O", "X", 
              "X", "O", "O", 
@@ -44,6 +48,26 @@ defmodule BoardTest do
   test "when board is empty, returns true" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     assert empty_board?(board)
+  end
+
+  test "returns a list of row value lists" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert all_rows(board) == [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
+  end
+
+  test "returns a list of column value lists" do
+    board = [1, 2, 3, 
+             4, 5, 6, 
+             7, 8, 9]
+    assert all_cols(board) == [[1, 4, 7], [2, 5, 8], [3, 6, 9]] 
+  end
+
+  test "returns a list of diagonal value lists" do
+    board = [1, 2, 3, 
+             4, 5, 6, 
+             7, 8, 9]
+    assert all_diags(board) == [[1, 5, 9], [3, 5, 7]] 
+
   end
 
   test "returns true when a player has a winning row" do

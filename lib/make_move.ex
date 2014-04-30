@@ -4,7 +4,6 @@ import Board
 import AiPlayer
 
 defprotocol MakeMove do
-  @doc "Returns cell index of player move"
   @only [HumanPlayer, ComputerPlayer, AiPlayer]
   def make_move(player, board)
 end

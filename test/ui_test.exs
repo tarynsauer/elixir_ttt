@@ -6,13 +6,13 @@ defmodule UiTest do
   test "requests player type" do
      assert capture_io(fn ->
        request_player_type("X")
-     end) == "Enter player type for X:\n" 
+     end) == "Enter player type for 'X':\n" 
   end
 
   test "requests player move" do
     assert capture_io(fn ->
        request_player_move("X")
-     end) == "Player X, make your move:\n" 
+     end) == "Player 'X', make your move:\n" 
   end
 
   test "normalizes player type input" do

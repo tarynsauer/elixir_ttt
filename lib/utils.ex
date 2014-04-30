@@ -16,4 +16,16 @@ defmodule Utils do
     if x_player_turn?(board), do: @x_marker, else: @o_marker 
   end
 
+  def row_count(board) do
+    round(:math.sqrt(Enum.count(board)))
+  end
+
+  def row_counter(num_rows) do
+    Enum.to_list(Range.new(0, num_rows - 1)) 
+  end
+
+  def cell_val(board, index) do
+    Enum.at(board, index)
+  end
+  
 end

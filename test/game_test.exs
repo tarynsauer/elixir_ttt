@@ -20,7 +20,7 @@ defmodule GameTest do
 
   test "indicates whether it's X's turn" do
     board = ["X", "O", "X", 4, 5, 6, 7, 8, 9]
-    refute x_player_turn?(board)
+    refute player_x_turn?(board)
   end
 
   test "returns marker of the current player's opponent" do

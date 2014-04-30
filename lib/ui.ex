@@ -1,6 +1,6 @@
 defmodule Ui do
   import Board, only: [get_row: 3] 
-
+  import Utils, only: [row_count: 1, row_counter: 1]
   def print_line(text) do
     IO.puts text 
   end
@@ -16,11 +16,11 @@ defmodule Ui do
   end
 
   def request_player_type(marker) do
-    print_line "Enter player type for #{marker}:"
+    print_line "Enter player type for '#{marker}':"
   end
 
   def request_player_move(marker) do
-    print_line "Player #{marker}, make your move:"
+    print_line "Player '#{marker}', make your move:"
   end
 
   def invalid_type_message(marker) do
@@ -45,14 +45,21 @@ defmodule Ui do
     print_line "Player '#{marker}' wins!"
   end
 
-  def print_row(row) do
-    print_line Enum.join(row, " ")
+  def row_to_string(board, first, last) do
+    row_values = get_row(board, first, last)
+    Enum.join(row_values, " ")
+  end
+
+  def print_row(board, num_rows, index) do
+    print_line row_to_string(board, (index * num_rows), (num_rows * (index + 1)) - 1)
   end
 
   def print_board(board) do
-    print_row get_row(board, 0, 2) 
-    print_row get_row(board, 3, 5)
-    print_row get_row(board, 6, 8) 
+    num_rows = row_count(board)
+    count = row_counter(num_rows)
+    Enum.each count, fn index -> 
+      print_row(board, num_rows, index)
+    end
   end
   
 end

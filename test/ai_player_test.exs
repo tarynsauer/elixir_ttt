@@ -67,13 +67,6 @@ defmodule AiPlayerTest do
     assert best_move(board, "X") == 0 
   end
 
-  test "chooses corner with only middle cell taken" do
-    board = [1, 2, 3, 
-             4,"X",6, 
-             7, 8, 9]
-    assert best_move(board, "O") == 6 
-  end
-
   test "chooses opposite side with one side cell taken" do
     board = [1, "X", 3, 
              4, 5, 6, 

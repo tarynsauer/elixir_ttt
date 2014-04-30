@@ -1,9 +1,9 @@
 defmodule Board do
-  @standard_board [1, 2, 3, 4, 5, 6, 7, 8, 9]
   import Utils
 
-  def new_board do
-    @standard_board
+  def new_board(row_count) do
+    range = Range.new(1, (row_count * row_count))
+    Enum.to_list(range)
   end
 
   def get_row(board, first, last) do
@@ -11,13 +11,39 @@ defmodule Board do
     Enum.slice(board, range)
   end
 
-  def get_col(board, first, last) do
-    middle = first + 3
-    [Enum.at(board, first), Enum.at(board, middle), Enum.at(board, last)]
+  def all_rows(board) do
+    num_rows = row_count(board)
+    count = row_counter(num_rows)
+    Enum.map count, fn(i) -> 
+      get_row(board, (i * num_rows), ((i + 1) * num_rows) - 1)
+    end
   end
 
-  def get_diag(board, first, last) do
-    [Enum.at(board, first), Enum.at(board, 4), Enum.at(board, last)]
+  def all_cols(board) do
+    num_rows = row_count(board)
+    count = row_counter(num_rows)
+    Enum.map count, fn(index) -> 
+      get_col(board, index, count, num_rows)
+    end
+  end
+
+  def all_diags(board) do
+    num_rows = row_count(board)
+    count = row_counter(num_rows)
+    [get_diag(board, List.first(count), (num_rows + 1), count, num_rows),
+    get_diag(board, List.last(count), (num_rows - 1), count, num_rows)]
+  end
+
+  def get_col(board, index, count, num_rows) do
+    Enum.map(count, fn(n) -> (cell_val(board, (index + (n * num_rows)))) end)
+  end
+
+  def get_diag(board, index, step_val, count, num_rows) do
+    if index == 0 do
+      Enum.map(count, fn(n) -> (cell_val(board, (index + n) * step_val)) end)
+    else
+      Enum.map(count, fn(n) -> (cell_val(board, index + (n * step_val))) end)
+    end
   end
 
   def open_cells(board) do
@@ -49,21 +75,8 @@ defmodule Board do
   end
 
   def winning_game?(board) do
-    winning_row?(board) || winning_col?(board) || winning_diag?(board)
-  end
-
-  def winning_row?(board) do
-    winning_line?(get_row(board, 0, 2)) || winning_line?(get_row(board, 3, 5)) ||
-  winning_line?(get_row(board, 6, 8))
-  end
-
-  def winning_col?(board) do
-    winning_line?(get_col(board, 0, 6)) || winning_line?(get_col(board, 1, 7))
-    || winning_line?(get_col(board, 2, 9))
-  end
-
-  def winning_diag?(board) do
-    winning_line?(get_diag(board, 0, 8)) || winning_line?(get_diag(board, 2, 6))
+    lines = all_rows(board) ++ all_cols(board) ++ all_diags(board)
+    Enum.any?(lines, fn(line) -> winning_line?(line) end)
   end
 
   def winning_line?(line) do

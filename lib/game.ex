@@ -9,7 +9,7 @@ defmodule Game do
   @o_marker "O"
 
   def new_game do
-    board = new_board  
+    board = new_board(3)  
     player_x = get_player(@x_marker)
     player_o = get_player(@o_marker)
     play(board, player_x, player_o)
@@ -30,17 +30,17 @@ defmodule Game do
     make_move(current_player(board, player_x, player_o), board)     
   end
 
-  def x_player_turn?(board) do
+  def player_x_turn?(board) do
     marker_count = Enum.filter(board, fn(x) -> !is_integer(x) end)
     even?(length marker_count) 
   end
 
   def current_player(board, player_x, player_o) do
-    if x_player_turn?(board), do: player_x, else: player_o 
+    if player_x_turn?(board), do: player_x, else: player_o 
   end
 
   def winning_marker(board) do
-    if x_player_turn?(board), do: @o_marker, else: @x_marker 
+    if player_x_turn?(board), do: @o_marker, else: @x_marker 
   end
 
   def game_over_message(board) do
