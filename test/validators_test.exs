@@ -1,5 +1,5 @@
 defmodule ValidatorsTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import ExUnit.CaptureIO
   import Validators   
 
@@ -26,6 +26,16 @@ defmodule ValidatorsTest do
   test "returns true for cell within range" do
     assert valid_move?([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
       13, 14, 15, 16], "11")
+  end
+
+  test "returns false for moves outside of the range" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    assert within_range?(board, 15)
+  end
+
+  test "returns false for moves outside of the range" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    refute within_range?(board, 0)
   end
 
   test "size is invalid when outside the range" do

@@ -1,5 +1,5 @@
 defmodule GameUtilsTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import GameUtils 
 
   test "cell has marker" do

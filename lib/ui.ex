@@ -11,8 +11,13 @@ defmodule Ui do
   end
 
   def get_input do
-    input = IO.gets ">"
-    String.downcase(input) |> String.slice(0..0)
+    input = IO.gets">"
+    String.strip(input, ?\n)
+  end
+
+  def get_type do
+    input = IO.getn">" 
+    String.downcase(input)
   end
 
   def request_player_type(marker) do

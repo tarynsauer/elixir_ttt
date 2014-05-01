@@ -1,5 +1,5 @@
 defmodule AiPlayerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import AiPlayer 
   import TestHelper, only: [number_of_markers_on_board: 1]
 

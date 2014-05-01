@@ -1,5 +1,5 @@
 defmodule GameTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import ExUnit.CaptureIO
   import Game 
   import TestHelper, only: [number_of_markers_on_board: 1]

@@ -1,5 +1,5 @@
 defmodule UiTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Ui
   import ExUnit.CaptureIO
 
@@ -23,8 +23,15 @@ defmodule UiTest do
 
   test "normalizes player type input" do
     capture_io([input: "Human\n", capture_prompt: false], fn ->
+      type = get_type 
+      assert type == "h"
+    end)
+  end
+
+  test "returns player move input" do
+    capture_io([input: "16\n", capture_prompt: false], fn ->
       input = get_input 
-      assert input == "h"
+      assert input == "16"
     end)
   end
 
