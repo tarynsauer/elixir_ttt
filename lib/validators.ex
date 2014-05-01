@@ -10,8 +10,7 @@ defmodule Validators do
   end
 
   def within_range?(board, cell_index) do
-    max_index = (length board) - 1 
-    (cell_index >= 0) && (cell_index <= max_index)
+    cell_index >= 0 && cell_index < (length board)
   end
 
   def valid_cell_index?(board, cell_index) do
