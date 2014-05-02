@@ -13,7 +13,11 @@ to play on 3- to 6-row boards) and three player type options (human, easy comput
 
 ## Running the Test Suite
 
-- Mix test
+- mix test
+
+Integration tests are not run by default. To include integration tests, run:
+
+- mix test --include integration:true
 
 ## Playing the Game
 
