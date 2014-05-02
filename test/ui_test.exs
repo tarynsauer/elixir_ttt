@@ -2,6 +2,18 @@ defmodule UiTest do
   use ExUnit.Case, async: true
   import Ui
   import ExUnit.CaptureIO
+  
+  test "prints new game message" do
+    assert capture_io(fn ->
+      new_game_message
+    end) == "********* New Game *********\n" 
+  end
+
+  test "prints row" do
+    assert capture_io(fn ->
+      print_row([1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 0) 
+    end) == "| 1 | 2 | 3 | \n" 
+  end
 
   test "requests player type" do
     assert capture_io(fn ->
@@ -53,10 +65,16 @@ defmodule UiTest do
     end) == "Invalid size. " 
   end
 
-  test "prints board" do
-     assert capture_io(fn ->
-       print_board(["X", 2, 3, 4, 5, 6, 7, 8, 9])
-     end) == "X 2 3\n4 5 6\n7 8 9\n" 
+  test "prints 3x3 board" do
+    assert capture_io(fn ->
+      print_board(["X", 2, 3, 4, 5, 6, 7, 8, 9])
+    end) == "| X | 2 | 3 | \n| 4 | 5 | 6 | \n| 7 | 8 | 9 | \n"
+  end
+
+  test "prints 4x4 board" do
+    assert capture_io(fn ->
+      print_board(["X", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+    end) == "| X | 2 | 3 | 4 | \n| 5 | 6 | 7 | 8 | \n| 9 | 10| 11| 12| \n| 13| 14| 15| 16| \n"
   end
 
   test "prints game over message for tie game" do

@@ -20,6 +20,10 @@ defmodule Ui do
     String.downcase(input)
   end
 
+  def new_game_message do
+    print_line "********* New Game *********"
+  end
+
   def request_player_type(marker) do
     print_line "Enter player type for '#{marker}':"
   end
@@ -58,8 +62,17 @@ defmodule Ui do
     print_line "Player '#{marker}' wins!"
   end
 
+  def single_character?(value) do
+    is_integer(value) && value > 9
+  end
+
+  def add_cell_dividers(row) do
+    nums = Enum.map(row, fn(x) -> if single_character?(x), do: to_string(x) <> "| ", else: to_string(x) <> " | " end) |> Enum.join("")
+    "| " <> nums
+  end
+
   def row_to_string(board, first, last) do
-    get_row(board, first, last) |> Enum.join(" ")
+    get_row(board, first, last) |> add_cell_dividers
   end
 
   def print_row(board, num_rows, index) do

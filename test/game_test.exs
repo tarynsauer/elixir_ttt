@@ -30,7 +30,7 @@ defmodule GameTest do
      board = ["X", "O", "X", "X", "O", "O", "O", "X", "X"] 
      assert capture_io(fn ->
        game_over_message(board) 
-     end) =="Game over. It's a tie!\nX O X\nX O O\nO X X\n"
+     end) == "Game over. It's a tie!\n| X | O | X | \n| X | O | O | \n| O | X | X | \n"
   end
 
   test "prints winning game message for winning board" do
@@ -39,7 +39,7 @@ defmodule GameTest do
               "X", "X", "O"] 
      assert capture_io(fn ->
        game_over_message(board) 
-     end) =="Game over. Player 'O' wins!\nO O 3\nX O X\nX X O\n"
+     end) == "Game over. Player 'O' wins!\n| O | O | 3 | \n| X | O | X | \n| X | X | O | \n"
   end
 
   test "prints game over message for winning board" do
@@ -50,7 +50,7 @@ defmodule GameTest do
               "X", "X", "O"] 
      assert capture_io(fn ->
        play(board, player_x, player_o) 
-     end) =="Game over. Player 'O' wins!\nO O 3\nX O X\nX X O\n"
+     end) == "Game over. Player 'O' wins!\n| O | O | 3 | \n| X | O | X | \n| X | X | O | \n"
   end
 
 end
