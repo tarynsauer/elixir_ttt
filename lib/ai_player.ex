@@ -26,46 +26,55 @@ defmodule AiPlayer do
   end
 
   def move_score(board, ai_marker, cell) do
-    apply_minimax(add_marker(board, cell), ai_marker, ai_marker, 1, -999, 999)     
+    apply_minimax(add_marker(board, cell), ai_marker, ai_marker, 1, {-999, 999})     
   end
 
-  def alphabeta(board, ai_marker, marker, depth, alpha, beta) do
-    Enum.flat_map_reduce(board, 0, fn cell, acc ->
-      if no_break?(alpha, beta) do
-        apply_minimax(add_marker(board, cell),
-        ai_marker, current_player_marker(board), depth, alpha, beta)
-      else
-        {:halt, acc}  ##need to return score,
+  def alphabeta(board, ai_marker, marker, depth, alphabeta) do
+    cells = open_cells(board)
+    Enum.reduce(cells, alphabeta, fn (cell, acc) ->
+      if !break?(alphabeta) do
+        new_board = add_marker(board, cell)
+        score = apply_minimax(new_board, ai_marker, current_player_marker(board), (depth + 1), acc) / depth
+        alpha = get_alpha(ai_marker, new_board, score, acc)
+        beta = get_beta(ai_marker, new_board, score, acc)
+        acc = {alpha, beta}
       end
-    end)
+      acc
+    end) |> return_best_score(marker, ai_marker)
   end
 
-  def apply_minimax(board, ai_marker, marker, depth, alpha, beta) do
+  def apply_minimax(board, ai_marker, marker, depth, alphabeta) do
     if game_over?(board) do
       score(board, ai_marker)
     else
-      score = elem(alphabeta(board, ai_marker, current_player_marker(board), (depth +
-      1), alpha, beta), 1) / depth
-      IO.inspect score
-      alpha = get_alpha(ai_marker, marker, score, alpha)
-      beta = get_beta(ai_marker, marker, score, beta)
+      alphabeta(board, ai_marker, current_player_marker(board), depth, alphabeta)
     end
   end
 
-  def no_break?(alpha, beta) do
-    beta < alpha 
+  def break?(alphabeta) do
+    elem(alphabeta, 0) >= elem(alphabeta, 1)
   end
 
-  def get_alpha(ai_marker, marker, score, alpha) do
-    if marker == ai_marker do  ### Might be opposite
+  def maximizing_player?(board, ai_marker) do
+    current_player_marker(board) == ai_marker
+  end
+
+  def return_best_score(alphabeta, marker, ai_marker) do
+    if (marker == ai_marker) && !nil?(alphabeta), do: elem(alphabeta, 0), else: elem(alphabeta, 1) 
+  end
+
+  def get_alpha(ai_marker, board, score, alphabeta) do
+    alpha = elem(alphabeta, 0)
+    if maximizing_player?(board, ai_marker) do  ### Might be opposite
       alpha
     else
       if score > alpha, do: score, else: alpha
     end
   end
 
-  def get_beta(ai_marker, marker, score, beta) do
-    if marker == ai_marker do  ### Might be opposite
+  def get_beta(ai_marker, board, score, alphabeta) do
+    beta = elem(alphabeta, 1)
+    if maximizing_player?(board, ai_marker) do  ### Might be opposite
       if score < beta, do: score, else: beta
     else
       beta
