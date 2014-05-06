@@ -11,7 +11,7 @@ defmodule Game do
   end
 
   def start_game do
-    board = get_board_size  
+    board = new_board(3)
     player_x = get_player(x_marker)
     player_o = get_player(o_marker)
     play(board, player_x, player_o)
