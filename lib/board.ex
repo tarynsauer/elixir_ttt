@@ -58,11 +58,6 @@ defmodule Board do
     List.replace_at(board, cell_index, marker)
   end
 
-  def make_random_move(board) do
-    cell_index = List.first(Enum.shuffle(open_cells(board)))
-    add_marker(board, cell_index)
-  end
-
   def board_full?(board) do
     Enum.filter(board, fn(x) -> is_integer(x) end) |> Enum.empty?
   end

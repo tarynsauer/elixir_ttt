@@ -1,7 +1,6 @@
 defmodule BoardTest do
   use ExUnit.Case, async: true
   import Board 
-  import TestHelper, only: [number_of_markers_on_board: 1]
 
   test "creates a new 3 x 3 board" do
     board = new_board(3)
@@ -31,11 +30,6 @@ defmodule BoardTest do
   test "adds marker to the board" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     assert add_marker(board, 0) == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
-  end
-
-  test "places move in a random open cell" do
-    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    assert number_of_markers_on_board(make_random_move(board)) == 1 
   end
 
   test "returns true, indicates no moves remaining" do
