@@ -84,4 +84,7 @@ defmodule Board do
     winning_game?(board) || board_full?(board)    
   end
 
+  def center_cell_index(board) do
+    (round (length board) / 2) - 1
+  end
 end
