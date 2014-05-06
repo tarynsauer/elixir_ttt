@@ -18,9 +18,9 @@ defmodule AiPlayerTest do
      assert score(board, "X") == -1 
   end
 
-  test "chooses random cell for empty board" do
+  test "chooses middle cell for empty board" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    assert number_of_markers_on_board(ai_move(board, "X")) == 1 
+    assert ai_move(board, "X") ==  [1, 2, 3, 4, "X", 6, 7, 8, 9]
   end
 
   test "takes winning move" do
@@ -79,11 +79,18 @@ defmodule AiPlayerTest do
     assert best_move(board, "X") == 0 
   end
 
-  test "chooses opposite side with one side cell taken" do
-    board = [1, "X", 3, 
+  test "chooses center if top left corner is taken" do
+    board = ["X", 2, 3, 
              4, 5, 6, 
              7, 8, 9]
-    assert best_move(board, "O") == 7 
+    assert best_move(board, "O") == 4 
+  end
+
+  test "chooses center if bottom right corner is taken" do
+    board = [1, 2, 3, 
+             4, 5, 6, 
+             7, 8, "X"]
+    assert best_move(board, "O") == 4 
   end
 
   test "chooses win when same cell is block and win" do
