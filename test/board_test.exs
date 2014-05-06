@@ -112,4 +112,14 @@ defmodule BoardTest do
     refute game_over?(board)
   end
 
+  test "returns center index for 3x3" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert center_cell_index(board) == 4
+  end
+
+  test "returns center index for 4x4" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    assert center_cell_index(board) == 7 
+  end
+
 end

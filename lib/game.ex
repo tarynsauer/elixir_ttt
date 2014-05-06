@@ -6,6 +6,11 @@ defmodule Game do
   import MakeMove
 
   def new_game do
+    new_game_message
+    start_game
+  end
+
+  def start_game do
     board = get_board_size  
     player_x = get_player(x_marker)
     player_o = get_player(o_marker)

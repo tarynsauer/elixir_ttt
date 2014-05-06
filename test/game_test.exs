@@ -2,7 +2,6 @@ defmodule GameTest do
   use ExUnit.Case, async: true
   import ExUnit.CaptureIO
   import Game 
-  import TestHelper, only: [number_of_markers_on_board: 1]
 
   test "returns the marker of the current player" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -18,19 +17,11 @@ defmodule GameTest do
     assert current_player(board, player_x, player_o) == player_o 
   end
 
-  test "promps player for move" do
-    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    player_x = %ComputerPlayer{marker: "X"}
-    player_o = %HumanPlayer{marker: "O"}
-    assert number_of_markers_on_board(get_next_move(board, player_x, player_o))
-    == 1 
-  end
-
   test "prints tie game message for tie board" do
      board = ["X", "O", "X", "X", "O", "O", "O", "X", "X"] 
      assert capture_io(fn ->
        game_over_message(board) 
-     end) == "Game over. It's a tie!\n| X | O | X | \n| X | O | O | \n| O | X | X | \n"
+     end) == "\n**** Game Over ****\nIt's a tie!\n| X | O | X | \n| X | O | O | \n| O | X | X | \n"
   end
 
   test "prints winning game message for winning board" do
@@ -39,7 +30,7 @@ defmodule GameTest do
               "X", "X", "O"] 
      assert capture_io(fn ->
        game_over_message(board) 
-     end) == "Game over. Player 'O' wins!\n| O | O | 3 | \n| X | O | X | \n| X | X | O | \n"
+     end) == "\n**** Game Over ****\nPlayer 'O' wins!\n| O | O | 3 | \n| X | O | X | \n| X | X | O | \n"
   end
 
   test "prints game over message for winning board" do
@@ -50,7 +41,7 @@ defmodule GameTest do
               "X", "X", "O"] 
      assert capture_io(fn ->
        play(board, player_x, player_o) 
-     end) == "Game over. Player 'O' wins!\n| O | O | 3 | \n| X | O | X | \n| X | X | O | \n"
+     end) == "\n**** Game Over ****\nPlayer 'O' wins!\n| O | O | 3 | \n| X | O | X | \n| X | X | O | \n"
   end
 
 end

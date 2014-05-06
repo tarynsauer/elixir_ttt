@@ -6,7 +6,7 @@ defmodule UiTest do
   test "prints new game message" do
     assert capture_io(fn ->
       new_game_message
-    end) == "********* New Game *********\n" 
+    end) == "\n********* New Game *********\n" 
   end
 
   test "prints row" do
@@ -18,7 +18,7 @@ defmodule UiTest do
   test "requests player type" do
     assert capture_io(fn ->
       request_player_type("X")
-    end) == "Enter player type for 'X':\n" 
+    end) == "Enter player type (a - AI, c - Easy Computer, h - human) for 'X':\n" 
   end
 
   test "requests board size" do
@@ -80,13 +80,13 @@ defmodule UiTest do
   test "prints game over message for tie game" do
     assert capture_io(fn ->
        tie_game_message
-     end) == "Game over. It's a tie!\n" 
+     end) == "\n**** Game Over ****\nIt's a tie!\n" 
   end
 
   test "prints game over message for winning game" do
     assert capture_io(fn ->
        winning_game_message("X")
-     end) == "Game over. Player 'X' wins!\n" 
+     end) == "\n**** Game Over ****\nPlayer 'X' wins!\n" 
   end
 
 end

@@ -21,11 +21,11 @@ defmodule Ui do
   end
 
   def new_game_message do
-    print_line "********* New Game *********"
+    print_line "\n********* New Game *********"
   end
 
   def request_player_type(marker) do
-    print_line "Enter player type for '#{marker}':"
+    print_line "Enter player type (a - AI, c - Easy Computer, h - human) for '#{marker}':"
   end
 
   def request_player_move(marker) do
@@ -49,7 +49,7 @@ defmodule Ui do
   end
 
   def game_over_message do
-    print "Game over. "
+    print_line "\n**** Game Over ****"
   end
 
   def tie_game_message do

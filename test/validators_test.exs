@@ -35,7 +35,7 @@ defmodule ValidatorsTest do
 
   test "returns false for moves outside of the range" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    refute within_range?(board, 0)
+    refute within_range?(board, 18) 
   end
 
   test "size is invalid when outside the range" do
@@ -61,12 +61,6 @@ defmodule ValidatorsTest do
     adds move to board when valid" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     assert validate_move(board, "1", "X") == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
-  end
-
-  test "#validate_move
-    does not add invalid move" do
-    board = ["X", 2, 3, 4, 5, 6, 7, 8, 9]
-    assert validate_move(board, "1", "O") == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
   test "#validate_type

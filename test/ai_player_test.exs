@@ -1,7 +1,6 @@
 defmodule AiPlayerTest do
   use ExUnit.Case, async: true
   import AiPlayer 
-  import TestHelper, only: [number_of_markers_on_board: 1]
 
   test "if winning board, returns win score" do
      board = ["X", "X", "X", "O", "O", 6, 7, 8, 9]
