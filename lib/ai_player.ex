@@ -11,10 +11,15 @@ defmodule AiPlayer do
 
   def ai_move(board, ai_marker) do
     if empty_board?(board) do
-      make_random_move(board) 
+      take_center_cell(board) 
     else
       add_marker(board, best_move(board, ai_marker))
     end
+  end
+
+  def take_center_cell(board) do
+    index = center_cell_index(board) 
+    add_marker(board, index)
   end
 
   def best_move(board, ai_marker) do
@@ -54,7 +59,7 @@ defmodule AiPlayer do
   end
 
   def need_best_move?(alphabeta) do
-    elem(alphabeta, 0) < elem(alphabeta, 1)
+    alpha(alphabeta) < beta(alphabeta)
   end
 
   def maximizing_player?(marker, ai_marker) do
@@ -62,11 +67,11 @@ defmodule AiPlayer do
   end
 
   def return_best_score(alphabeta, marker, ai_marker) do
-    if (marker == ai_marker), do: elem(alphabeta, 0), else: elem(alphabeta, 1) 
+    if (marker == ai_marker), do: alpha(alphabeta), else: beta(alphabeta) 
   end
 
   def get_alpha(ai_marker, marker, score, alphabeta) do
-    alpha = elem(alphabeta, 0)
+    alpha = alpha(alphabeta)
     if maximizing_player?(marker, ai_marker) do  
       alpha
     else
@@ -75,12 +80,20 @@ defmodule AiPlayer do
   end
 
   def get_beta(ai_marker, marker, score, alphabeta) do
-    beta = elem(alphabeta, 1)
+    beta = beta(alphabeta)
     if maximizing_player?(marker, ai_marker) do  
       if score < beta, do: score, else: beta
     else
       beta
     end
+  end
+
+  def alpha(alphabeta) do
+    elem(alphabeta, 0)
+  end
+
+  def beta(alphabeta) do
+    elem(alphabeta, 1)
   end
 
   def ai_player_win?(board, ai_marker) do
