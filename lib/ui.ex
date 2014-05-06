@@ -11,12 +11,12 @@ defmodule Ui do
   end
 
   def get_input do
-    input = IO.gets">"
+    input = IO.gets "> "
     String.strip(input, ?\n)
   end
 
   def get_type do
-    input = IO.getn">" 
+    input = IO.getn "> " 
     String.downcase(input)
   end
 
