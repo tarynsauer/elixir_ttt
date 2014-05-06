@@ -67,8 +67,8 @@ defmodule Board do
   end
 
   def winning_game?(board) do
-    lines = all_rows(board) ++ all_cols(board) ++ all_diags(board)
-    Enum.any?(lines, fn(line) -> winning_line?(line) end)
+    all_rows(board) ++ all_cols(board) ++ all_diags(board)
+    |> Enum.any?(fn(line) -> winning_line?(line) end)
   end
 
   def winning_line?(line) do

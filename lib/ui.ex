@@ -67,8 +67,10 @@ defmodule Ui do
   end
 
   def add_cell_dividers(row) do
-    nums = Enum.map(row, fn(x) -> if single_character?(x), do: to_string(x) <> "| ", else: to_string(x) <> " | " end) |> Enum.join("")
-    "| " <> nums
+    row_string = Enum.map(row, fn(n) -> 
+    if single_character?(n), do: to_string(n) <> "| ", else: to_string(n) <> " | " end) 
+    |> Enum.join("")
+    "| " <> row_string 
   end
 
   def row_to_string(board, first, last) do
@@ -83,10 +85,9 @@ defmodule Ui do
 
   def print_board(board) do
     num_rows = row_count(board)
-    count = row_counter(num_rows)
-    Enum.each count, fn index -> 
+    row_counter(num_rows) |> Enum.each(fn index -> 
       print_row(board, num_rows, index)
-    end
+    end)
   end
   
 end

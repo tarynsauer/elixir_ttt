@@ -26,7 +26,7 @@ defmodule Game do
   end
   
   def get_next_move(board, player_x, player_o) do
-    request_player_move(current_player(board, player_x, player_o).marker) 
+    current_player(board, player_x, player_o).marker |> request_player_move 
     print_board(board)
     make_move(current_player(board, player_x, player_o), board)     
   end
@@ -37,7 +37,7 @@ defmodule Game do
 
   def game_over_message(board) do
     if winning_game?(board) do
-      winning_game_message(winning_marker(board))
+      winning_marker(board) |> winning_game_message
     else
       tie_game_message
     end

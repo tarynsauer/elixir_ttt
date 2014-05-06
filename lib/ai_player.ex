@@ -23,13 +23,11 @@ defmodule AiPlayer do
   end
 
   def best_move(board, ai_marker) do
-    best_scored_move = Enum.max(scored_moves(board, ai_marker))
-    Enum.at(best_scored_move, 1)
+    Enum.max(scored_moves(board, ai_marker)) |> Enum.at(1)
   end
 
   def scored_moves(board, ai_marker) do
-    cells = open_cells(board)
-    Enum.map(cells, fn cell -> 
+    open_cells(board) |> Enum.map(fn cell -> 
     [move_score(board, ai_marker, cell)] ++ [cell] end)    
   end
 
@@ -38,8 +36,7 @@ defmodule AiPlayer do
   end
 
   def alphabeta(board, ai_marker, marker, depth, alphabeta) do
-    cells = open_cells(board)
-    Enum.reduce(cells, alphabeta, fn (cell, acc) ->
+    open_cells(board) |> Enum.reduce(alphabeta, fn (cell, acc) ->
       if need_best_move?(acc) do
         score = apply_minimax(add_marker(board, cell), ai_marker, current_player_marker(board), (depth + 1), acc) / depth
         alpha = get_alpha(ai_marker, marker, score, acc)
@@ -47,7 +44,7 @@ defmodule AiPlayer do
         acc = {alpha, beta}
       end
       acc
-    end) |> return_best_score(marker, ai_marker)
+    end) |> best_score(marker, ai_marker)
   end
 
   def apply_minimax(board, ai_marker, marker, depth, alphabeta) do
@@ -66,7 +63,7 @@ defmodule AiPlayer do
     marker != ai_marker
   end
 
-  def return_best_score(alphabeta, marker, ai_marker) do
+  def best_score(alphabeta, marker, ai_marker) do
     if (marker == ai_marker), do: alpha(alphabeta), else: beta(alphabeta) 
   end
 
