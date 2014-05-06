@@ -1,6 +1,4 @@
 # ElixirTtt
-
-## Overview
 ElixirTtt is a command-line tic-tac-toe game written in Elixir, with human vs. human and human vs.
 computer options. Features include a configurable board size (users can choose
 to play on 3- to 6-row boards) and three player type options (human, easy computer, and unbeatable computer).
@@ -23,7 +21,7 @@ Integration tests are not run by default. To include integration tests, run:
 `mix test --include integration:true`
 
 ## Playing the Game
-Run the following commands to play a tic-tac-toe game:
+Run the following commands to play a tic-tac-toe game:  
 `mix clean`  
 `mix escriptize`  
 `./elixir_ttt`  
