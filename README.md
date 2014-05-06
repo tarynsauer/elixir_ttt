@@ -17,7 +17,7 @@ To get started with ElixirTtt
 To run all unit tests:  
 `mix test`
 
-Integration tests are not run by default. To include integration tests, run:
+Integration tests are not run by default. To include integration tests, run:  
 `mix test --include integration:true`
 
 ## Playing the Game
