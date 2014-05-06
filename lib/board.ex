@@ -1,9 +1,8 @@
 defmodule Board do
-  import Utils
+  import GameUtils
 
   def new_board(row_count) do
-    range = Range.new(1, (row_count * row_count))
-    Enum.to_list(range)
+    Range.new(1, (row_count * row_count)) |> Enum.to_list
   end
 
   def get_row(board, first, last) do
@@ -51,8 +50,7 @@ defmodule Board do
   end
 
   def open_cell?(board, cell_index) do
-    cell_value = Enum.at(board, cell_index)
-    is_integer(cell_value)
+    Enum.at(board, cell_index) |> is_integer
   end
 
   def add_marker(board, cell_index) do
@@ -66,8 +64,7 @@ defmodule Board do
   end
 
   def board_full?(board) do
-    open_cells = Enum.filter(board, fn(x) -> is_integer(x) end)
-    Enum.empty?(open_cells)
+    Enum.filter(board, fn(x) -> is_integer(x) end) |> Enum.empty?
   end
 
   def empty_board?(board) do

@@ -1,5 +1,5 @@
 defmodule PlayerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Player
 
   test "creates a new player" do

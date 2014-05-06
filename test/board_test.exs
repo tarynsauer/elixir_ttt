@@ -1,5 +1,5 @@
 defmodule BoardTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Board 
   import TestHelper, only: [number_of_markers_on_board: 1]
 
@@ -18,12 +18,12 @@ defmodule BoardTest do
     assert get_col(board, 0, [0, 1, 2], 3) == [1, 4, 7]
   end
 
-  test "indicates whether cell is open" do
+  test "cell is not open" do
     board = ["X", 2, 3, 4, 5, 6, 7, 8, 9]
     refute open_cell?(board, 0)
   end
 
-  test "returns indexes of all open cells" do
+  test "lists indexes of all open cells" do
     board = ["X", 2, 3, 4, 5, 6, 7, 8, 9]
     assert open_cells(board) == [1, 2, 3, 4, 5, 6, 7, 8] 
   end
@@ -45,24 +45,24 @@ defmodule BoardTest do
     assert board_full?(board)
   end
 
-  test "when board is empty, returns true" do
+  test "board is empty" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     assert empty_board?(board)
   end
 
-  test "returns a list of row value lists" do
+  test "lists all row value lists" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     assert all_rows(board) == [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
   end
 
-  test "returns a list of column value lists" do
+  test "lists all column value lists" do
     board = [1, 2, 3, 
              4, 5, 6, 
              7, 8, 9]
     assert all_cols(board) == [[1, 4, 7], [2, 5, 8], [3, 6, 9]] 
   end
 
-  test "returns a list of diagonal value lists" do
+  test "lists both diagonal value lists" do
     board = [1, 2, 3, 
              4, 5, 6, 
              7, 8, 9]
@@ -70,42 +70,42 @@ defmodule BoardTest do
 
   end
 
-  test "returns true when a player has a winning row" do
+  test "player has a winning row" do
     board = [1, 2, 3, 
              "O", "O", 6, 
              "X", "X", "X"]
     assert winning_game?(board)
   end
 
-  test "returns true when a player has a winning column" do
+  test "player has a winning column" do
     board = ["X", 2, 3, 
              "X", "O", 6, 
              "X", "O", 9]
     assert winning_game?(board)
   end
 
-  test "returns true when a play has a winning diagonal line" do
+  test "player has a winning diagonal line" do
     board = ["O", 2, 3, 
              "X", "O", 6, 
              "X", "X", "O"]
     assert winning_game?(board)
   end
-
-  test "indicates game is over for win" do
+  
+  test "game is over if a player won" do
     board = ["O", 2, 3, 
              "X", "O", 6, 
              "X", "X", "O"]
     assert game_over?(board)
   end
 
-  test "indicates game is over for tie" do
+  test "game is over if there's a tie" do
     board = ["X", "O", "X", 
              "X", "O", "O", 
              "O", "X", "X"]
     assert game_over?(board)
   end
 
-  test "indicates game is not over" do
+  test "game is not over" do
     board = ["X", 2, "X", 
              4, "O", "O", 
              "O", "X", "X"]

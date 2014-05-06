@@ -1,12 +1,13 @@
 defmodule AiPlayer do
-  defstruct marker: "X" 
+  import GameUtils
+  import Board
+
+  defstruct marker: x_marker 
   @win 1
   @lose -1
   @tie 0
   @neg_inf -999
   @pos_inf 999
-  import Utils
-  import Board
 
   def ai_move(board, ai_marker) do
     if empty_board?(board) do

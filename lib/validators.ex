@@ -2,17 +2,19 @@ defmodule Validators do
   import Player
   import Ui
   import Board, only: [new_board: 1, open_cell?: 2, add_marker: 2]
-  import Utils
-
-  @valid_types player_types
+  import GameUtils
 
   def valid_type?(type) do
     type = String.downcase(type)
-    Enum.any?(@valid_types, fn(x) -> x == type end)
+    Enum.any?(player_types, fn(x) -> x == type end)
+  end
+
+  def within_range?(board, cell_index) do
+    cell_index >= 0 && cell_index < (length board)
   end
 
   def valid_cell_index?(board, cell_index) do
-    (0 <= cell_index) && (cell_index < 10) && open_cell?(board, cell_index)
+    within_range?(board, cell_index) && open_cell?(board, cell_index)
   end
 
   def valid_move?(board, move) do
@@ -38,7 +40,7 @@ defmodule Validators do
     parse_integer(move) - 1
   end
 
-  def play_valid_move(board, move, marker) do
+  def play_valid_move(board, move) do
     cell_index = get_cell_index(move)
     add_marker(board, cell_index) 
   end
@@ -51,7 +53,7 @@ defmodule Validators do
 
   def validate_move(board, move, marker) do
     if valid_move?(board, move) do
-      play_valid_move(board, move, marker)
+      play_valid_move(board, move)
     else
       handle_invalid_move(board, marker)
     end
@@ -78,14 +80,12 @@ defmodule Validators do
 
   def get_player(marker) do
     request_player_type(marker)
-    type = get_input
-    validate_type(type, marker)
+    get_input |> validate_type(marker)
   end
 
   def get_board_size do
     request_board_size
-    size = get_input
-    validate_board_size(size)
+    get_input |> validate_board_size
   end
 
   def get_move(board, marker) do

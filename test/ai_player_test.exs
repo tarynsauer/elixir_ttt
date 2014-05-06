@@ -1,5 +1,5 @@
 defmodule AiPlayerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import AiPlayer 
   import TestHelper, only: [number_of_markers_on_board: 1]
 
@@ -16,6 +16,18 @@ defmodule AiPlayerTest do
   test "if losing board, returns lose score" do
      board = ["X", "X", 3, "O", "O", "O", 7, 8, "X"]
      assert score(board, "X") == -1 
+  end
+
+  test "chooses random cell for empty board" do
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert number_of_markers_on_board(ai_move(board, "X")) == 1 
+  end
+
+  test "takes winning move" do
+    board = [1, "X", "X", 
+             "X", "O", "O", 
+             "X", "O", "O"]
+    assert ai_move(board, "X") == ["X", "X", "X", "X", "O", "O", "X", "O", "O"] 
   end
 
   test "takes winning space when one is available" do

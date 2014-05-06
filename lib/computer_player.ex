@@ -1,3 +1,4 @@
 defmodule ComputerPlayer do
-  defstruct marker: "X" 
+  import GameUtils, only: [x_marker: 0]
+  defstruct marker: x_marker 
 end
