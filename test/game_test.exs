@@ -3,14 +3,14 @@ defmodule GameTest do
   import ExUnit.CaptureIO
   import Game 
 
-  test "returns the marker of the current player" do
+  test "returns player with X marker" do
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     player_x = %HumanPlayer{marker: "X"}
     player_o = %HumanPlayer{marker: "O"}
     assert current_player(board, player_x, player_o) == player_x 
   end
-
-  test "returns the marker of the current player" do
+  
+  test "returns player with O marker" do
     board = ["X", "O", "X", 4, 5, 6, 7, 8, 9]
     player_x = %HumanPlayer{marker: "X"}
     player_o = %HumanPlayer{marker: "O"}

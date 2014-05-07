@@ -1,7 +1,7 @@
 import Ui, only: [get_input: 0]
 import Validators, only: [validate_move: 3]
-import Board 
-import AiPlayer
+import Board, only: [add_marker: 2, open_cells: 1] 
+import AiPlayer, only: [ai_move: 2]
 
 defprotocol MakeMove do
   @only [HumanPlayer, ComputerPlayer, AiPlayer]

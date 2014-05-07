@@ -6,7 +6,6 @@ defmodule ElixirTtt.Mixfile do
      version: "0.0.1",
      elixir: "~> 0.13.0",
      escript_main_module: Run,
-     # escript_path: "run",
      deps: deps,
      compile_path: "ebin"]
   end
