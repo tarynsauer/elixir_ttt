@@ -56,12 +56,19 @@ defmodule BoardTest do
     assert all_cols(board) == [[1, 4, 7], [2, 5, 8], [3, 6, 9]] 
   end
 
-  test "lists both diagonal value lists" do
+  test "lists 3x3 diagonal value lists" do
     board = [1, 2, 3, 
              4, 5, 6, 
              7, 8, 9]
     assert all_diags(board) == [[1, 5, 9], [3, 5, 7]] 
+  end
 
+  test "lists 4x4 diagonal value lists" do
+    board = [1, 2, 3, 4, 
+             5, 6, 7, 8, 
+             9, 10, 11, 12,
+             13, 14, 15, 16]
+    assert all_diags(board) == [[1, 6, 11, 16], [4, 7, 10, 13]] 
   end
 
   test "player has a winning row" do

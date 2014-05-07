@@ -37,7 +37,7 @@ defmodule AiPlayer do
 
   def alphabeta(board, ai_marker, marker, depth, alphabeta) do
     open_cells(board) |> Enum.reduce(alphabeta, fn (cell, acc) ->
-      if need_best_move?(acc) do
+      if search_tree?(acc) do
         score = apply_minimax(add_marker(board, cell), ai_marker, current_player_marker(board), (depth + 1), acc) / depth
         alpha = get_alpha(ai_marker, marker, score, acc)
         beta = get_beta(ai_marker, marker, score, acc)
@@ -55,7 +55,7 @@ defmodule AiPlayer do
     end
   end
 
-  def need_best_move?(alphabeta) do
+  def search_tree?(alphabeta) do
     alpha(alphabeta) < beta(alphabeta)
   end
 
