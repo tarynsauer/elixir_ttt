@@ -22,4 +22,14 @@ defmodule PlayerTest do
     assert player.marker == "X" 
   end
 
+  test "computer player has a marker" do
+    player = create_player("X", "c") 
+    assert player.marker == "X" 
+  end
+
+  test "ai player has a marker" do
+    player = create_player("X", "a") 
+    assert player.marker == "X" 
+  end
+
 end

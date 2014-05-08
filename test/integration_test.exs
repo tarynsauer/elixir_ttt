@@ -13,7 +13,7 @@ defmodule IntegrationTest do
     == 1 
   end
 
-  test "#validate_move does not add invalid move" do
+  test "does not add invalid move" do
     board = ["X", 2, 3, 4, 5, 6, 7, 8, 9]
     assert validate_move(board, "1", "O") == ["X", 2, 3, 4, 5, 6, 7, 8, 9]
   end
