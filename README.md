@@ -12,6 +12,13 @@ To get started with ElixirTtt:
 - Get dependencies  
 `mix deps`
 
+## Troubleshooting
+If you have previously installed versions of Elixir and/or Erlang, you may need to reinstall them. If you experience version issues, try uninstalling and reinstalling them:  
+`brew unlink elixir`  
+`brew unlink erlang`  
+`brew install --devel erlang`  
+`brew install elixir`  
+
 ## Running the Test Suite
 To run all unit tests:  
 `mix test`
