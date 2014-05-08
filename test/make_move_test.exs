@@ -3,6 +3,7 @@ defmodule MakeMoveTest do
   import MakeMove 
   import ExUnit.CaptureIO
   import TestHelper, only: [number_of_markers_on_board: 1]
+
   @board [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
   test "computer player makes random move" do

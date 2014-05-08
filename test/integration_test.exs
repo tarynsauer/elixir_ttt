@@ -3,6 +3,7 @@ defmodule IntegrationTest do
   import Game 
   import Validators, only: [validate_move: 3]
   import TestHelper, only: [number_of_markers_on_board: 1]
+
   @moduletag :integration
 
   test "promps player for move" do

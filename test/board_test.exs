@@ -1,6 +1,7 @@
 defmodule BoardTest do
   use ExUnit.Case, async: true
   import Board 
+
   @new_3x3_board [1, 2, 3, 4, 5, 6, 7, 8, 9]
   @new_4x4_board [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
