@@ -1,9 +1,9 @@
 # ElixirTtt
 ElixirTtt is a command-line tic-tac-toe game written in Elixir, with human vs. human and human vs.
-computer options. For 'X' and 'O' players, you can select among there different player type options (human, easy computer, and unbeatable computer).
+computer options. For 'X' and 'O' players, you can select among three different player type options (human, easy computer, and unbeatable computer).
 
 ## Getting Started
-To get started with ElixirTtt
+To get started with ElixirTtt:
 - Install Erlang and Elixir - [See
   instructions.](http://elixir-lang.org/getting_started/1.html) 
 - Clone this repository  
