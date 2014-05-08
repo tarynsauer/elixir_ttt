@@ -39,9 +39,10 @@ defmodule AiPlayer do
   def alphabeta(board, ai_marker, depth, alphabeta) do
     open_cells(board) |> Enum.reduce(alphabeta, fn (cell, acc) ->
       if search_tree?(acc) do
+        marker = current_player_marker(board)
         score = apply_minimax(add_marker(board, cell), ai_marker, (depth + 1), acc) / depth
-        alpha = get_alpha(ai_marker, current_player_marker(board), score, acc)
-        beta = get_beta(ai_marker, current_player_marker(board), score, acc)
+        alpha = get_alpha(ai_marker, marker, score, acc)
+        beta = get_beta(ai_marker, marker, score, acc)
         acc = {alpha, beta}
       end
       acc
