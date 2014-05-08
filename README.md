@@ -20,7 +20,8 @@ Integration tests are not run by default. To include integration tests, run:
 `mix test --include integration:true`
 
 ## Playing the Game
-Run the following commands to play a tic-tac-toe game:  
+Run the following commands to generate an escript:  
 `mix clean`  
-`mix escriptize`  
+`mix escriptize` 
+Once you've generated the escript, run the following command to play the game:
 `./elixir_ttt`  
