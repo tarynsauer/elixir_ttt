@@ -16,7 +16,7 @@ defimpl MakeMove, for: HumanPlayer do
 end
 
 defimpl MakeMove, for: ComputerPlayer do
-  def make_move(player, board) do 
+  def make_move(_, board) do 
     cell_index = List.first(Enum.shuffle(open_cells(board)))
     add_marker(board, cell_index)
   end
