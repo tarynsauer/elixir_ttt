@@ -16,12 +16,7 @@ defmodule AiPlayer do
       add_marker(board, best_move(board, ai_marker))
     end
   end
-
-  def take_center_cell(board) do
-    index = center_cell_index(board) 
-    add_marker(board, index)
-  end
-
+  
   def best_move(board, ai_marker) do
     Enum.max(scored_moves(board, ai_marker)) |> Enum.at(1)
   end
@@ -56,6 +51,18 @@ defmodule AiPlayer do
       alphabeta(board, ai_marker, depth, alphabeta)
     end
   end
+   
+  def score(board, ai_marker) do
+    if winning_game?(board) do
+      if ai_player_win?(board, ai_marker), do: @win, else: @lose 
+    else
+      @tie
+    end
+  end
+
+  def best_score(alphabeta, marker, ai_marker) do
+    if maximizing_player?(marker, ai_marker), do: beta(alphabeta), else: alpha(alphabeta) 
+  end
 
   def search_tree?(alphabeta) do
     alpha(alphabeta) < beta(alphabeta)
@@ -63,10 +70,6 @@ defmodule AiPlayer do
 
   def maximizing_player?(marker, ai_marker) do
     marker != ai_marker
-  end
-
-  def best_score(alphabeta, marker, ai_marker) do
-    if (marker == ai_marker), do: alpha(alphabeta), else: beta(alphabeta) 
   end
 
   def get_alpha(ai_marker, marker, score, alphabeta) do
@@ -87,6 +90,10 @@ defmodule AiPlayer do
     end
   end
 
+  def ai_player_win?(board, ai_marker) do
+    current_player_marker(board) != ai_marker
+  end
+
   def alpha(alphabeta) do
     elem(alphabeta, 0)
   end
@@ -95,15 +102,9 @@ defmodule AiPlayer do
     elem(alphabeta, 1)
   end
 
-  def ai_player_win?(board, ai_marker) do
-    current_player_marker(board) != ai_marker
+  def take_center_cell(board) do
+    index = center_cell_index(board) 
+    add_marker(board, index)
   end
 
-  def score(board, ai_marker) do
-    if winning_game?(board) do
-      if ai_player_win?(board, ai_marker), do: @win, else: @lose 
-    else
-      @tie
-    end
-  end
 end
