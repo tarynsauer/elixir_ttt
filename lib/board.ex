@@ -14,7 +14,7 @@ defmodule Board do
     Enum.map(count, fn(n) -> (cell_val(board, (index + (n * num_rows)))) end)
   end
 
-  def get_diag(board, index, step_val, count, num_rows) do
+  def get_diag(board, index, step_val, count) do
     if index == 0 do
       Enum.map(count, fn(n) -> (cell_val(board, (index + n) * step_val)) end)
     else
@@ -41,8 +41,8 @@ defmodule Board do
   def all_diags(board) do
     num_rows = row_count(board)
     count = row_counter(num_rows)
-    [get_diag(board, List.first(count), (num_rows + 1), count, num_rows),
-    get_diag(board, List.last(count), (num_rows - 1), count, num_rows)]
+    [get_diag(board, List.first(count), (num_rows + 1), count),
+    get_diag(board, List.last(count), (num_rows - 1), count)]
   end
 
   def open_cells(board) do
