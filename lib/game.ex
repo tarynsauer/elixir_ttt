@@ -1,7 +1,7 @@
 defmodule Game do
   import GameUtils 
-  import Board
-  import Validators
+  import Board, only: [new_board: 1, game_over?: 1, winning_game?: 1]
+  import Validators, only: [get_player: 1]
   import Ui
   import MakeMove
 

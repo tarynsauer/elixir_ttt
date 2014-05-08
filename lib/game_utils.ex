@@ -1,5 +1,5 @@
 defmodule GameUtils do
-  import Integer
+  import Integer, only: [even?: 1]
   @x_marker "X"
   @o_marker "O"
   

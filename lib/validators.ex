@@ -1,8 +1,8 @@
 defmodule Validators do
-  import Player
+  import Player, only: [create_player: 2, player_types: 0]
   import Ui
   import Board, only: [new_board: 1, open_cell?: 2, add_marker: 2]
-  import GameUtils
+  import GameUtils, only: [parse_integer: 1]
 
   def validate_move(board, move, marker) do
     if valid_move?(board, move) do

@@ -1,5 +1,5 @@
 defmodule AiPlayer do
-  import GameUtils
+  import GameUtils, only: [x_marker: 0, current_player_marker: 1]
   import Board
 
   defstruct marker: x_marker 
