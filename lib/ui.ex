@@ -62,13 +62,13 @@ defmodule Ui do
     print_line "Player '#{marker}' wins!"
   end
 
-  def single_character?(value) do
+  def two_characters?(value) do
     is_integer(value) && value > 9
   end
 
   def add_cell_dividers(row) do
     row_string = Enum.map(row, fn(n) -> 
-    if single_character?(n), do: to_string(n) <> "| ", else: to_string(n) <> " | " end) 
+    if two_characters?(n), do: to_string(n) <> "| ", else: to_string(n) <> " | " end) 
     |> Enum.join("")
     "| " <> row_string 
   end
