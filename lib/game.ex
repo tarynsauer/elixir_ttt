@@ -26,7 +26,7 @@ defmodule Game do
   end
   
   def get_next_move(board, player_x, player_o) do
-    current_player(board, player_x, player_o).marker |> request_player_move 
+    current_player_marker(board) |> request_player_move 
     print_board(board)
     make_move(current_player(board, player_x, player_o), board)     
   end
