@@ -3,6 +3,7 @@ defmodule AiPlayer do
   import Board
 
   defstruct marker: x_marker 
+
   @win 1
   @lose -1
   @tie 0
