@@ -13,7 +13,7 @@ To get started with ElixirTtt:
 `mix deps`
 
 ## Troubleshooting
-If you have previously installed versions of Elixir and/or Erlang, you may need to reinstall them. If you experience version issues, try uninstalling and reinstalling them:  
+If you have previously installed versions of Elixir and/or Erlang, you experience version issues. In such cases, try uninstalling and reinstalling them:  
 `brew unlink elixir`  
 `brew unlink erlang`  
 `brew install --devel erlang`  
