@@ -22,6 +22,6 @@ Integration tests are not run by default. To include integration tests, run:
 ## Playing the Game
 Run the following commands to generate an escript:  
 `mix clean`  
-`mix escriptize` 
-Once you've generated the escript, run the following command to play the game:
+`mix escriptize`   
+Once you've generated the escript, run the following command to play the game:  
 `./elixir_ttt`  
