@@ -5,23 +5,6 @@ defmodule Board do
     Range.new(1, (row_count * row_count)) |> Enum.to_list
   end
 
-  def get_row(board, first, last) do
-    range = Range.new(first, last)
-    Enum.slice(board, range)
-  end
-
-  def get_col(board, index, count, num_rows) do
-    Enum.map(count, fn(n) -> (cell_val(board, (index + (n * num_rows)))) end)
-  end
-
-  def get_diag(board, index, step_val, count) do
-    if index == 0 do
-      Enum.map(count, fn(n) -> (cell_val(board, (index + n) * step_val)) end)
-    else
-      Enum.map(count, fn(n) -> (cell_val(board, index + (n * step_val))) end)
-    end
-  end
-
   def all_rows(board) do
     num_rows = row_count(board)
     count = row_counter(num_rows)
@@ -49,21 +32,9 @@ defmodule Board do
     Enum.filter_map(board, fn(x) -> is_integer(x) end, &(&1 - 1))
   end
 
-  def open_cell?(board, cell_index) do
-    Enum.at(board, cell_index) |> is_integer
-  end
-
   def add_marker(board, cell_index) do
     marker = current_player_marker(board)
     List.replace_at(board, cell_index, marker)
-  end
-
-  def board_full?(board) do
-    Enum.filter(board, fn(x) -> is_integer(x) end) |> Enum.empty?
-  end
-
-  def empty_board?(board) do
-    Enum.all?(board, fn(x) -> is_integer(x) end)
   end
 
   def winning_game?(board) do
@@ -71,12 +42,41 @@ defmodule Board do
     |> Enum.any?(fn(line) -> winning_line?(line) end)
   end
 
+  def game_over?(board) do
+    winning_game?(board) || board_full?(board)    
+  end
+
+  def get_row(board, first, last) do
+    range = Range.new(first, last)
+    Enum.slice(board, range)
+  end
+
+  def get_col(board, index, count, num_rows) do
+    Enum.map(count, fn(n) -> (cell_val(board, (index + (n * num_rows)))) end)
+  end
+
+  def get_diag(board, index, step_val, count) do
+    if index == 0 do
+      Enum.map(count, fn(n) -> (cell_val(board, (index + n) * step_val)) end)
+    else
+      Enum.map(count, fn(n) -> (cell_val(board, index + (n * step_val))) end)
+    end
+  end
+
   def winning_line?(line) do
     (length Enum.uniq(line)) == 1
   end
 
-  def game_over?(board) do
-    winning_game?(board) || board_full?(board)    
+  def board_full?(board) do
+    Enum.filter(board, fn(x) -> is_integer(x) end) |> Enum.empty?
+  end
+
+  def open_cell?(board, cell_index) do
+    Enum.at(board, cell_index) |> is_integer
+  end
+
+  def empty_board?(board) do
+    Enum.all?(board, fn(x) -> is_integer(x) end)
   end
 
   def center_cell_index(board) do
