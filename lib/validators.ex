@@ -45,17 +45,17 @@ defmodule Validators do
     add_marker(board, cell_index) 
   end
 
-  def handle_invalid_move(board, marker) do
+  def handle_invalid_move(marker) do
     invalid_move_message
     request_player_move(marker)
-    board
   end
 
   def validate_move(board, move, marker) do
     if valid_move?(board, move) do
       play_valid_move(board, move)
     else
-      handle_invalid_move(board, marker)
+      handle_invalid_move(marker)
+      board
     end
   end
 
