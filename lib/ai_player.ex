@@ -32,26 +32,27 @@ defmodule AiPlayer do
   end
 
   def move_score(board, ai_marker, cell) do
-    apply_minimax(add_marker(board, cell), ai_marker, ai_marker, 1, {@neg_inf, @pos_inf})     
+    add_marker(board, cell)
+    |> apply_minimax(ai_marker, 1, {@neg_inf, @pos_inf})     
   end
 
-  def alphabeta(board, ai_marker, marker, depth, alphabeta) do
+  def alphabeta(board, ai_marker, depth, alphabeta) do
     open_cells(board) |> Enum.reduce(alphabeta, fn (cell, acc) ->
       if search_tree?(acc) do
-        score = apply_minimax(add_marker(board, cell), ai_marker, current_player_marker(board), (depth + 1), acc) / depth
-        alpha = get_alpha(ai_marker, marker, score, acc)
-        beta = get_beta(ai_marker, marker, score, acc)
+        score = apply_minimax(add_marker(board, cell), ai_marker, (depth + 1), acc) / depth
+        alpha = get_alpha(ai_marker, current_player_marker(board), score, acc)
+        beta = get_beta(ai_marker, current_player_marker(board), score, acc)
         acc = {alpha, beta}
       end
       acc
-    end) |> best_score(marker, ai_marker)
+    end) |> best_score(current_player_marker(board), ai_marker)
   end
 
-  def apply_minimax(board, ai_marker, marker, depth, alphabeta) do
+  def apply_minimax(board, ai_marker, depth, alphabeta) do
     if game_over?(board) do
       score(board, ai_marker)
     else
-      alphabeta(board, ai_marker, current_player_marker(board), depth, alphabeta)
+      alphabeta(board, ai_marker, depth, alphabeta)
     end
   end
 
