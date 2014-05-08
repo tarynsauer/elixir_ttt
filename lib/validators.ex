@@ -46,7 +46,7 @@ defmodule Validators do
   end
 
   def handle_invalid_move(board, marker) do
-    invalid_move_message(marker)
+    invalid_move_message
     request_player_move(marker)
     board
   end
@@ -63,7 +63,7 @@ defmodule Validators do
     if valid_type?(type) do
       create_player(marker, type)
     else
-      invalid_type_message(marker)
+      invalid_type_message
       get_player(marker)
     end
   end

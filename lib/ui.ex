@@ -36,11 +36,11 @@ defmodule Ui do
     print_line "Enter number of board rows (3-6):"
   end
 
-  def invalid_type_message(marker) do
+  def invalid_type_message do
     print "Invalid type. "
   end
 
-  def invalid_move_message(marker) do
+  def invalid_move_message do
     print "Invalid move. "
   end
 

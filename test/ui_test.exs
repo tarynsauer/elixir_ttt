@@ -49,13 +49,13 @@ defmodule UiTest do
 
   test "prints invalid type message" do
      assert capture_io(fn ->
-       invalid_type_message("X")
+       invalid_type_message
      end) == "Invalid type. " 
   end
 
   test "prints invalid move message" do
     assert capture_io(fn ->
-      invalid_move_message("X")
+      invalid_move_message
     end) == "Invalid move. " 
   end
 
